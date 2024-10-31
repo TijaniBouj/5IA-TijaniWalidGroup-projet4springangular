@@ -1,16 +1,12 @@
 package tn.esprit.devops_project.entities;
 
 import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -27,14 +23,26 @@ public class Supplier implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long idSupplier;
+
 	String code;
 	String label;
+
 	@Enumerated(EnumType.STRING)
 	SupplierCategory supplierCategory;
-	@OneToMany(mappedBy="supplier")
-	@JsonIgnore
-	Set<Invoice> invoices;
-    
 
-	
+	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true) // Optional: cascade and orphan removal
+	@JsonIgnore
+	List<Invoice> invoices = new ArrayList<>(); // Changed to ArrayList for List type
+
+	// Method to add an invoice to the supplier
+	public void addInvoice(Invoice invoice) {
+		invoices.add(invoice);
+		invoice.setSupplier(this); // Ensure the invoice references this supplier
+	}
+
+	// Method to remove an invoice from the supplier
+	public void removeInvoice(Invoice invoice) {
+		invoices.remove(invoice);
+		invoice.setSupplier(null); // Clear the reference in the invoice
+	}
 }

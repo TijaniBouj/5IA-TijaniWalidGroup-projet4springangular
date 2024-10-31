@@ -11,6 +11,7 @@ import tn.esprit.devops_project.repositories.InvoiceRepository;
 import tn.esprit.devops_project.repositories.OperatorRepository;
 import tn.esprit.devops_project.repositories.SupplierRepository;
 import tn.esprit.devops_project.services.Iservices.IInvoiceService;
+import tn.esprit.devops_project.exceptions.ResourceNotFoundException; // Custom exception
 
 import java.util.Date;
 import java.util.List;
@@ -24,45 +25,58 @@ public class InvoiceServiceImpl implements IInvoiceService {
 	final OperatorRepository operatorRepository;
 	final InvoiceDetailRepository invoiceDetailRepository;
 	final SupplierRepository supplierRepository;
-	
+
 	@Override
 	public List<Invoice> retrieveAllInvoices() {
+		log.info("Retrieving all invoices");
 		return invoiceRepository.findAll();
 	}
+
 	@Override
 	public void cancelInvoice(Long invoiceId) {
-		// method 01
-		Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new NullPointerException("Invoice not found"));
+		log.info("Cancelling invoice with ID: {}", invoiceId);
+		Invoice invoice = invoiceRepository.findById(invoiceId)
+				.orElseThrow(() -> new ResourceNotFoundException("Invoice not found with ID: " + invoiceId));
+
 		invoice.setArchived(true);
 		invoiceRepository.save(invoice);
-		//method 02 (Avec JPQL)
+
+		// Assuming this method does additional work
 		invoiceRepository.updateInvoice(invoiceId);
+		log.info("Invoice with ID: {} has been cancelled", invoiceId);
 	}
 
 	@Override
 	public Invoice retrieveInvoice(Long invoiceId) {
-
-		return invoiceRepository.findById(invoiceId).orElseThrow(() -> new NullPointerException("Invoice not found"));
+		log.info("Retrieving invoice with ID: {}", invoiceId);
+		return invoiceRepository.findById(invoiceId)
+				.orElseThrow(() -> new ResourceNotFoundException("Invoice not found with ID: " + invoiceId));
 	}
 
 	@Override
 	public List<Invoice> getInvoicesBySupplier(Long idSupplier) {
-		Supplier supplier = supplierRepository.findById(idSupplier).orElseThrow(() -> new NullPointerException("Supplier not found"));
+		log.info("Retrieving invoices for supplier with ID: {}", idSupplier);
+		Supplier supplier = supplierRepository.findById(idSupplier)
+				.orElseThrow(() -> new ResourceNotFoundException("Supplier not found with ID: " + idSupplier));
 		return (List<Invoice>) supplier.getInvoices();
 	}
 
 	@Override
 	public void assignOperatorToInvoice(Long idOperator, Long idInvoice) {
-		Invoice invoice = invoiceRepository.findById(idInvoice).orElseThrow(() -> new NullPointerException("Invoice not found"));
-		Operator operator = operatorRepository.findById(idOperator).orElseThrow(() -> new NullPointerException("Operator not found"));
+		log.info("Assigning operator with ID: {} to invoice with ID: {}", idOperator, idInvoice);
+		Invoice invoice = invoiceRepository.findById(idInvoice)
+				.orElseThrow(() -> new ResourceNotFoundException("Invoice not found with ID: " + idInvoice));
+		Operator operator = operatorRepository.findById(idOperator)
+				.orElseThrow(() -> new ResourceNotFoundException("Operator not found with ID: " + idOperator));
+
 		operator.getInvoices().add(invoice);
 		operatorRepository.save(operator);
+		log.info("Operator with ID: {} has been assigned to invoice with ID: {}", idOperator, idInvoice);
 	}
 
 	@Override
 	public float getTotalAmountInvoiceBetweenDates(Date startDate, Date endDate) {
+		log.info("Calculating total amount of invoices between dates: {} and {}", startDate, endDate);
 		return invoiceRepository.getTotalAmountInvoiceBetweenDates(startDate, endDate);
 	}
-
-
 }
