@@ -64,7 +64,7 @@ public class StockServiceImplTest {
     public void testRetrieveStockNotFound() {
         // Given
         when(stockRepository.findById(1L)).thenReturn(Optional.empty());
-
+        //tijani&walid
         // Then
         NullPointerException exception = assertThrows(NullPointerException.class, () -> {
             stockService.retrieveStock(1L);
