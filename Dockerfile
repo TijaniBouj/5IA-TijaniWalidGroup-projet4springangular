@@ -1,5 +1,5 @@
-# Use OpenJDK base image
-FROM openjdk:8-jdk-alpine
+# Use OpenJDK base image for Java 11
+FROM openjdk:11-jdk-slim
 
 # Expose the application's port
 EXPOSE 8082
