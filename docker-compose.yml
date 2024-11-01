@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysqldb:
+    image: mariadb:10.4
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: ""  # Leave blank if no root password
+      MYSQL_DATABASE: devops     # This will create the database if it doesn't exist
+      MYSQL_USER: root           # The username for MySQL
+      MYSQL_PASSWORD: ""         # Leave blank for no password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldb-data:/var/lib/mysql  # Persist database data
+
+  # Spring Boot Application Service
+  app:
+    image: walidjlassi1/achat:1.0.0  # Change this to your actual image name
+    container_name: achat_app
+    ports:
+      - "8080:8080"  # Change this to your application's port
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""  # Leave blank if no password
+
+volumes:
+  mysqldb-data:
