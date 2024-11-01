@@ -67,7 +67,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) ~[spring-boot-2.7.13.jar:2.7.13]
-	at tn.esprit.devops_project.DevOps_ProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
+	at tn.esprit.devops_project.DevOpsProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
 Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
@@ -153,7 +153,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) ~[spring-boot-2.7.13.jar:2.7.13]
-	at tn.esprit.devops_project.DevOps_ProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
+	at tn.esprit.devops_project.DevOpsProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
 Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
@@ -208,7 +208,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) ~[spring-boot-2.7.13.jar:2.7.13]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) ~[spring-boot-2.7.13.jar:2.7.13]
-	at tn.esprit.devops_project.DevOps_ProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
+	at tn.esprit.devops_project.DevOpsProjectSpringBootApplication.main(DevOps_ProjectSpringBootApplication.java:10) ~[classes/:?]
 Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
 	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:284) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]
 	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:246) ~[hibernate-core-5.6.15.Final.jar:5.6.15.Final]

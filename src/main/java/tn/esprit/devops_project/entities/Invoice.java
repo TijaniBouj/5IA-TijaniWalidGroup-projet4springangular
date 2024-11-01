@@ -22,23 +22,29 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Invoice implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long idInvoice;
+
 	float amountDiscount;
 	float amountInvoice;
+
 	@Temporal(TemporalType.DATE)
 	Date dateCreationInvoice;
+
 	@Temporal(TemporalType.DATE)
 	Date dateLastModificationInvoice;
-	Boolean archived;
-	@OneToMany(mappedBy = "invoice")
-	Set<InvoiceDetail> invoiceDetails;
-    @ManyToOne
-    @JsonIgnore
-    Supplier supplier;
 
-	
+	Boolean archived;
+
+	@OneToMany(mappedBy = "invoice")
+	@JsonIgnore
+	Set<InvoiceDetail> invoiceDetails; // Kept private and with @JsonIgnore for serialization
+
+	@ManyToOne
+	@JsonIgnore
+	Supplier supplier;
 }
