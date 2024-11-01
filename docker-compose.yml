@@ -2,31 +2,38 @@ version: '3.8'
 
 services:
   # MySQL Database Service
-  mysqldb:
-    image: mariadb:10.4
-    container_name: mysqldb
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ""  # Leave blank if no root password
-      MYSQL_DATABASE: devops     # This will create the database if it doesn't exist
-      MYSQL_USER: root           # The username for MySQL
-      MYSQL_PASSWORD: ""         # Leave blank for no password
+      MYSQL_DATABASE: devops  # Changed to match your application properties
+      MYSQL_USER: root  # Changed to match your application properties
+      MYSQL_PASSWORD: # Changed to match your application properties
+      MYSQL_ROOT_PASSWORD:  # Use the same password for root
     ports:
       - "3306:3306"
     volumes:
-      - mysqldb-data:/var/lib/mysql  # Persist database data
+      - mysql_data:/var/lib/mysql
+    networks:
+      - devops_network
 
-  # Spring Boot Application Service
-  app:
-    image: walidjlassi1/achat:1.0.0  # Change this to your actual image name
-    container_name: achat_app
-    ports:
-      - "8080:8080"  # Change this to your application's port
+  # Your Spring Boot Application Service
+  devops_project:
+    image: walidjlassi1/walidjlassi_5ia_TijaniWalidGroup_projet4springangular:1.0.0  # Your image name
+    container_name: devops_project  # Change container name if necessary
     depends_on:
-      - mysqldb
+      - mysql
+    ports:
+      - "8082:8082"  # Ensure this matches your application’s exposed port
+    networks:
+      - devops_network
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""  # Leave blank if no password
 
+networks:
+  devops_network:
+
 volumes:
-  mysqldb-data:
+  mysql_data:
