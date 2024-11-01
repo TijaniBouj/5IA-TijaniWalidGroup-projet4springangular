@@ -103,6 +103,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>tn.esprit.devops_project.DevOpsProjectSpringBootApplication</mainClass> <!-- Specify main class -->
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
