@@ -14,22 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Stock implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idStock; // Use "Long" instead of "long" to allow null values.
-
+    long idStock;
     String title;
-
-    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Added cascade and fetch strategies
+    @OneToMany(mappedBy = "stock")
     Set<Product> products;
-
-    // Optional: Override toString(), equals(), and hashCode() for better logging and comparison
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "idStock=" + idStock +
-                ", title='" + title + '\'' +
-                '}';
-    }
 }
