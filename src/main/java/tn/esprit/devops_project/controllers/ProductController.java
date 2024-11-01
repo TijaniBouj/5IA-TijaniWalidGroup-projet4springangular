@@ -10,37 +10,44 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
+@RequestMapping("/product") // Grouping product-related endpoints
 public class ProductController {
 
     private final IProductService productService;
 
-    @PostMapping("/product/{idStock}")
-    Product addProduct(@RequestBody Product product,@PathVariable Long idStock){
-        return productService.addProduct(product,idStock);
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @PostMapping("/{idStock}")
+    public Product addProduct(@RequestBody Product product, @PathVariable Long idStock) {
+        return productService.addProduct(product, idStock);
     }
 
-    @GetMapping("/product/{id}")
-    Product retrieveProduct(@PathVariable Long id){
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping("/{id}")
+    public Product retrieveProduct(@PathVariable Long id) {
         return productService.retrieveProduct(id);
     }
 
-    @GetMapping("/product")
-    List<Product> retreiveAllProduct(){
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping
+    public List<Product> retrieveAllProducts() {
         return productService.retreiveAllProduct();
     }
-    @GetMapping("/product/stock/{id}")
-    List<Product> retreiveProductStock(@PathVariable Long id){
+
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping("/stock/{id}")
+    public List<Product> retrieveProductStock(@PathVariable Long id) {
         return productService.retreiveProductStock(id);
     }
 
-    @GetMapping("/productCategoy/{category}")
-    List<Product> retrieveProductByCategory(@PathVariable ProductCategory category){
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping("/category/{category}")
+    public List<Product> retrieveProductByCategory(@PathVariable ProductCategory category) {
         return productService.retrieveProductByCategory(category);
     }
 
-    @DeleteMapping("/product/{id}")
-    void deleteProduct(@PathVariable Long id){
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
 }

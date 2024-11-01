@@ -9,27 +9,30 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
+@RequestMapping("/stock") // Grouping stock-related endpoints
 public class StockController {
 
     private final IStockService stockService;
     private static final Logger logger = LogManager.getLogger(StockController.class);
 
-    @PostMapping("/stock")
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @PostMapping
     public Stock addStock(@RequestBody Stock stock) {
         logger.info("Adding stock: {}", stock);
         return stockService.addStock(stock);
     }
 
-    @GetMapping("/stock/{id}")
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping("/{id}")
     public Stock retrieveStock(@PathVariable Long id) {
         logger.info("Retrieving stock with id: {}", id);
         return stockService.retrieveStock(id);
     }
 
-    @GetMapping("/stock")
+    @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
+    @GetMapping
     public List<Stock> retrieveAllStock() {
         logger.info("Retrieving all stocks");
         return stockService.retrieveAllStock();
