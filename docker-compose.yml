@@ -19,7 +19,7 @@ services:
 
   # Your Spring Boot Application Service
   devops_project:
-    image: walidjlassi1/walidjlassi_5ia_tijaniwalidgroup_projet4springangular:1.0.0  # Your image name
+    image: walidjlassi1/walidjlassi_5ia_tijaniwalidgroup_devops_project:1.0.0  # Your image name
     container_name: devops_project  # Change container name if necessary
     depends_on:
       - mysql
