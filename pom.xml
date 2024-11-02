@@ -82,12 +82,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!-- Micrometer Registry for Prometheus -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -115,4 +109,6 @@
             <url>http://192.168.57.128:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
+
+
 </project>
