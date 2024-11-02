@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   # MySQL Database Service
-  mysql:
+  mysqldb:
     image: mysql:8.0
     container_name: mysql
     environment:
@@ -20,13 +20,13 @@ services:
     image: walidjlassi1/walidjlassi_5ia_tijaniwalidgroup_devops_project:1.0.0  # Your image name
     container_name: devops_project  # Change container name if necessary
     depends_on:
-      - mysql
+      - mysqldb
     ports:
       - "8082:8082"  # Ensure this matches your application’s exposed port
     networks:
       - devops_network
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devops?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devops?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""  # Leave blank if no password
 
