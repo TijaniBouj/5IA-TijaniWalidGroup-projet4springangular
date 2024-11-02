@@ -1,12 +1,11 @@
 version: '3.8'
 
 services:
-  # MySQL Database Service
   mysql:
     image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_DATABASE: devops  # Changed to match your application properties
+      MYSQL_DATABASE: devops
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3306:3306"
@@ -14,21 +13,26 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - devops_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # Your Spring Boot Application Service
   devops_project:
-    image: walidjlassi1/walidjlassi_5ia_tijaniwalidgroup_devops_project:1.0.0  # Your image name
-    container_name: devops_project  # Change container name if necessary
+    image: walidjlassi1/walidjlassi_5ia_tijaniwalidgroup_devops_project:1.0.0
+    container_name: devops_project
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
-      - "8082:8082"  # Ensure this matches your application’s exposed port
+      - "8082:8082"
     networks:
       - devops_network
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devops?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""  # Leave blank if no password
+      SPRING_DATASOURCE_PASSWORD: ""
 
 networks:
   devops_network:
