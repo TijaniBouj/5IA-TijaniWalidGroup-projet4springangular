@@ -3,14 +3,8 @@ package tn.esprit.devops_project.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -47,4 +41,10 @@ public class Invoice implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	Supplier supplier;
+
+	// Add the operator field with @ManyToOne annotation to establish the relationship with Operator
+	@ManyToOne
+	@JoinColumn(name = "operator_id")  // Foreign key column in Invoice table
+	@JsonIgnore  // Prevents serialization issues with JSON
+			Operator operator;  // Operator field to establish the relationship to the Operator entity
 }

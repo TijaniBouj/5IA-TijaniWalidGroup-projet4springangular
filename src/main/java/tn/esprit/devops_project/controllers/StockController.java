@@ -18,7 +18,7 @@ public class StockController {
     private static final Logger logger = LogManager.getLogger(StockController.class);
 
     @CrossOrigin(origins = "https://trusted-domain.com") // Replace with your actual domain
-    @PostMapping
+    @PostMapping("/addStock")
     public Stock addStock(@RequestBody Stock stock) {
         logger.info("Adding stock: {}", stock);
         return stockService.addStock(stock);
